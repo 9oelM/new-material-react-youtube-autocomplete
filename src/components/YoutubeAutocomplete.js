@@ -3,6 +3,8 @@ import Downshift from 'downshift'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Input from '@material-ui/core/Input'
+import Paper from '@material-ui/core/Paper'
+import MenuItemMui from '@material-ui/core/MenuItem'
 import jsonp from 'jsonp'
 import shortid from 'shortid'
 
@@ -13,8 +15,10 @@ class YoutubeAutocomplete extends React.Component {
   constructor(props) {
     super(props)
     this.handleInputValueChange = this.handleInputValueChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.fetchData = this.fetchData.bind(this)
     this.getSearchSuggestions = this.getSearchSuggestions.bind(this)
+
     this.state = {
       inputValue: '',
       searchSuggestions: [],
@@ -46,12 +50,21 @@ class YoutubeAutocomplete extends React.Component {
     this.fetchData(this.state.inputValue)
   }
 
+  handleChange(selectedItem, stateAndHelpers = {}) {
+    this.setState({ inputValue: selectedItem.textContent })
+  }
+
   render() {
+    const { searchSuggestions, inputValue } = this.state
     return (
       <Downshift
         onInputValueChange={inputValue =>
           this.handleInputValueChange(inputValue)
         }
+        onChange={(selectedItem, stateAndHelpers) =>
+          this.handleChange(selectedItem, stateAndHelpers)
+        }
+        inputValue={inputValue}
       >
         {({
           getInputProps,
@@ -60,33 +73,24 @@ class YoutubeAutocomplete extends React.Component {
           getMenuProps,
           isOpen,
           inputValue,
-          highlightedIndex,
-          selectedItem,
         }) => (
           <div>
-            <label {...getLabelProps()}>Enter a fruit</label>
-            <input {...getInputProps()} />
-            <ul {...getMenuProps()}>
-              {isOpen
-                ? this.state.searchSuggestions.map((item, index) => (
-                    <li
-                      {...getItemProps({
-                        key: shortid.generate(),
-                        index,
-                        item,
-                        style: {
-                          backgroundColor:
-                            highlightedIndex === index ? 'lightgray' : 'white',
-                          fontWeight: selectedItem === item ? 'bold' : 'normal',
-                          color: 'black',
-                        },
-                      })}
-                    >
-                      {item}
-                    </li>
-                  ))
-                : null}
-            </ul>
+            <Input
+              {...getInputProps()}
+              placeholder="Search Youtube"
+              value={inputValue}
+            />
+            {isOpen ? (
+              <Paper square {...getMenuProps()}>
+                {searchSuggestions.map((eachSuggestion, index) => {
+                  return (
+                    <MenuItem key={shortid.generate()}>
+                      {eachSuggestion}
+                    </MenuItem>
+                  )
+                })}
+              </Paper>
+            ) : null}
           </div>
         )}
       </Downshift>
@@ -94,6 +98,16 @@ class YoutubeAutocomplete extends React.Component {
   }
 }
 
-YoutubeAutocomplete.propTypes = {}
+class MenuItem extends React.Component {
+  constructor() {
+    super()
+  }
+
+  render() {
+    const { children } = this.props
+    let handleClick
+    return <MenuItemMui>{children}</MenuItemMui>
+  }
+}
 
 export default YoutubeAutocomplete
