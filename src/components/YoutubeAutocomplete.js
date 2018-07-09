@@ -15,7 +15,6 @@ class YoutubeAutocomplete extends React.Component {
   constructor(props) {
     super(props)
     this.handleInputValueChange = this.handleInputValueChange.bind(this)
-    this.handleChange = this.handleChange.bind(this)
     this.fetchData = this.fetchData.bind(this)
     this.getSearchSuggestions = this.getSearchSuggestions.bind(this)
 
@@ -50,10 +49,6 @@ class YoutubeAutocomplete extends React.Component {
     this.fetchData(this.state.inputValue)
   }
 
-  handleChange(selectedItem, stateAndHelpers = {}) {
-    this.setState({ inputValue: selectedItem.textContent })
-  }
-
   render() {
     const { searchSuggestions, inputValue } = this.state
     return (
@@ -61,10 +56,9 @@ class YoutubeAutocomplete extends React.Component {
         onInputValueChange={inputValue =>
           this.handleInputValueChange(inputValue)
         }
-        onChange={(selectedItem, stateAndHelpers) =>
-          this.handleChange(selectedItem, stateAndHelpers)
-        }
+        onChange={selection => console.log(selection)}
         inputValue={inputValue}
+        itemToString={item => console.log(item)}
       >
         {({
           getInputProps,
@@ -78,13 +72,19 @@ class YoutubeAutocomplete extends React.Component {
             <Input
               {...getInputProps()}
               placeholder="Search Youtube"
-              value={inputValue}
+              fullWidth={true}
             />
             {isOpen ? (
               <Paper square {...getMenuProps()}>
                 {searchSuggestions.map((eachSuggestion, index) => {
                   return (
-                    <MenuItem key={shortid.generate()}>
+                    <MenuItem
+                      {...getItemProps({
+                        key: shortid.generate(),
+                        index,
+                        item: eachSuggestion,
+                      })}
+                    >
                       {eachSuggestion}
                     </MenuItem>
                   )
@@ -105,7 +105,6 @@ class MenuItem extends React.Component {
 
   render() {
     const { children } = this.props
-    let handleClick
     return <MenuItemMui>{children}</MenuItemMui>
   }
 }
