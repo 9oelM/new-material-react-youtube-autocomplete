@@ -6,6 +6,9 @@ import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 import jsonp from 'jsonp'
 import shortid from 'shortid'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import blue from '@material-ui/core/colors/blue'
+
 const googleAutoSuggestURL =
   '//suggestqueries.google.com/complete/search?client=youtube&ds=yt&q='
 
@@ -60,6 +63,9 @@ class Core extends React.Component {
       inputId = 'youtube-autocomplete-input',
       menuId = 'youtube-autocomplete-menu',
       itemClassName = 'youtube-autocomplete-menu',
+      theme = createMuiTheme({
+        primary: blue,
+      }),
     } = this.props
 
     return (
@@ -71,27 +77,29 @@ class Core extends React.Component {
           <div>
             {useMui ? (
               <React.Fragment>
-                <Input
-                  {...getInputProps({
-                    placeholder: 'Search Youtube',
-                    fullWidth: true,
-                  })}
-                />
-                {isOpen ? (
-                  <Paper square {...getMenuProps()}>
-                    {searchSuggestions.map((item, index) => (
-                      <MenuItem
-                        {...getItemProps({
-                          key: item.id,
-                          index,
-                          item,
-                        })}
-                      >
-                        {item.text}
-                      </MenuItem>
-                    ))}
-                  </Paper>
-                ) : null}
+                <MuiThemeProvider theme={theme}>
+                  <Input
+                    {...getInputProps({
+                      placeholder: 'Search Youtube',
+                      fullWidth: true,
+                    })}
+                  />
+                  {isOpen ? (
+                    <Paper square {...getMenuProps()}>
+                      {searchSuggestions.map((item, index) => (
+                        <MenuItem
+                          {...getItemProps({
+                            key: item.id,
+                            index,
+                            item,
+                          })}
+                        >
+                          {item.text}
+                        </MenuItem>
+                      ))}
+                    </Paper>
+                  ) : null}{' '}
+                </MuiThemeProvider>
               </React.Fragment>
             ) : (
               <React.Fragment>
