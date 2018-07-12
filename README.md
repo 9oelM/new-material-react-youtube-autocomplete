@@ -3,6 +3,9 @@
 ## Why
 Other similar repos were out of date, so I needed a new component that meets `@material-ui/core^1.3.1`, `react^16.4.1`, `react-dom^16.4.1`.
 
+## Demo
+[Here](https://9oelm.github.io/new-material-react-youtube-autocomplete/)
+
 ## Usage example
 ```javascript
 <YoutubeAutocomplete
@@ -50,3 +53,11 @@ Other similar repos were out of date, so I needed a new component that meets `@m
   })
   ```
 
+## Developing
+
+### `npm run sw`
+Starts the development server and watches file changes to beautify them.
+
+## Todos
+
+### on Mouse Click on other places, close the autocompleting form.
