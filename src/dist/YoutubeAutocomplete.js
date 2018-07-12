@@ -13,7 +13,12 @@ const YoutubeAutocomplete = ({
 }) => {
   return (
     <MuiThemeProvider theme={theme}>
-      <Core />
+      <Core
+        useMui={true}
+        inputId="youtube-autocomplete-input"
+        menuId="youtube-autocomplete-menu"
+        itemClassName="youtube-autocomplete-menu"
+      />
     </MuiThemeProvider>
   )
 }
