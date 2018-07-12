@@ -1,25 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Core from '../components/Core'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-import blue from '@material-ui/core/colors/blue'
 
 const YoutubeAutocomplete = ({
-  theme = createMuiTheme({
-    palette: {
-      primary: blue,
-    },
-  }),
+  useMui,
+  inputId,
+  menuId,
+  itemClassName,
+  theme,
 }) => {
   return (
-    <MuiThemeProvider theme={theme}>
-      <Core
-        useMui={true}
-        inputId="youtube-autocomplete-input"
-        menuId="youtube-autocomplete-menu"
-        itemClassName="youtube-autocomplete-menu"
-      />
-    </MuiThemeProvider>
+    <Core
+      useMui={useMui}
+      inputId={inputId}
+      menuId={menuId}
+      itemClassName={itemClassName}
+      theme={theme}
+    />
   )
 }
 
