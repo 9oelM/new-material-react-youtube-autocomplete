@@ -1,23 +1,20 @@
 import React from 'react'
 import Downshift from 'downshift'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core/styles'
 import Input from '@material-ui/core/Input'
 import Paper from '@material-ui/core/Paper'
-import MenuItemMui from '@material-ui/core/MenuItem'
+import MenuItem from '@material-ui/core/MenuItem'
 import jsonp from 'jsonp'
 import shortid from 'shortid'
-
 const googleAutoSuggestURL =
   '//suggestqueries.google.com/complete/search?client=youtube&ds=yt&q='
 
-class YoutubeAutocomplete extends React.Component {
+class Core extends React.Component {
   constructor(props) {
     super(props)
     this.handleInputValueChange = this.handleInputValueChange.bind(this)
     this.fetchData = this.fetchData.bind(this)
     this.getSearchSuggestions = this.getSearchSuggestions.bind(this)
-    this.handleChange = this.handleChange.bind(this)
     this.state = {
       inputValue: '',
       searchSuggestions: [],
@@ -30,7 +27,6 @@ class YoutubeAutocomplete extends React.Component {
       text: elem[0],
       id: shortid.generate(),
     }))
-    console.log(result)
     return result
   }
 
@@ -38,8 +34,10 @@ class YoutubeAutocomplete extends React.Component {
     let self = this
 
     jsonp(`${googleAutoSuggestURL}${query}`, function(error, data) {
-      if (error) console.log(error)
-
+      if (error) {
+        console.log(`error: 
+        ${error}`)
+      }
       let searchResult = data[1]
 
       self.state.searchSuggestions = self.getSearchSuggestions(searchResult)
@@ -50,42 +48,19 @@ class YoutubeAutocomplete extends React.Component {
 
   handleInputValueChange(_inputValue) {
     this.setState({ inputValue: _inputValue })
-    this.fetchData(this.state.inputValue)
+    this.fetchData(_inputValue)
   }
 
-  handleChange = selectedItems => {
-    console.log({ selectedItems })
-  }
+  handleItemToString = item => (item ? item.text : '')
 
   render() {
-    const { searchSuggestions, inputValue } = this.state
+    const { searchSuggestions } = this.state
     return (
       <Downshift
-        onInputValueChange={inputValue =>
-          this.handleInputValueChange(inputValue)
-        }
-        onStateChange={(selection, ...rest) => {
-          Object.keys(selection).forEach(each =>
-            console.log(`${each} ${this.selectedItem}`),
-          )
-          Object.keys(rest).forEach(each =>
-            console.log(`${each} ${this.selectedItem}`),
-          )
-        }}
-        onChange={this.handleChange}
-        itemToString={item => (item ? item.text : '')}
-        inputValue={inputValue}
+        onInputValueChange={this.handleInputValueChange}
+        itemToString={this.handleItemToString}
       >
-        {({
-          getInputProps,
-          getItemProps,
-          getLabelProps,
-          getMenuProps,
-          isOpen,
-          inputValue,
-          highlightedIndex,
-          selectedItem,
-        }) => (
+        {({ getInputProps, getItemProps, getMenuProps, isOpen }) => (
           <div>
             <Input
               {...getInputProps({
@@ -115,11 +90,4 @@ class YoutubeAutocomplete extends React.Component {
   }
 }
 
-class MenuItem extends React.Component {
-  render() {
-    const { children } = this.props
-    return <MenuItemMui>{children}</MenuItemMui>
-  }
-}
-
-export default YoutubeAutocomplete
+export default Core
