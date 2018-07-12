@@ -55,6 +55,8 @@ class Core extends React.Component {
 
   render() {
     const { searchSuggestions } = this.state
+    const { useMui } = this.prop
+
     return (
       <Downshift
         onInputValueChange={this.handleInputValueChange}
