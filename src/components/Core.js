@@ -44,8 +44,6 @@ class Core extends React.Component {
       let searchResult = data[1]
 
       self.state.searchSuggestions = self.getSearchSuggestions(searchResult)
-
-      console.log(self.state.searchSuggestions)
     }) // for some reason, `fetch (https://github.com/github/fetch)` does not work on localhost hosting enviromnet due to CORS problems. But for some reason, jsonp works without any problems...
   }
 
@@ -62,7 +60,7 @@ class Core extends React.Component {
       useMui = true,
       inputId = 'youtube-autocomplete-input',
       menuId = 'youtube-autocomplete-menu',
-      itemClassName = 'youtube-autocomplete-menu',
+      itemClassName = 'youtube-autocomplete-items',
       theme = createMuiTheme({
         primary: blue,
       }),
@@ -92,6 +90,9 @@ class Core extends React.Component {
                             key: item.id,
                             index,
                             item,
+                            style: {
+                              zIndex: 1,
+                            },
                           })}
                         >
                           {item.text}
