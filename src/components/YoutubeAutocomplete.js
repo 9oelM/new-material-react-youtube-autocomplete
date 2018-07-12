@@ -17,7 +17,7 @@ class YoutubeAutocomplete extends React.Component {
     this.handleInputValueChange = this.handleInputValueChange.bind(this)
     this.fetchData = this.fetchData.bind(this)
     this.getSearchSuggestions = this.getSearchSuggestions.bind(this)
-
+    this.handleChange = this.handleChange.bind(this)
     this.state = {
       inputValue: '',
       searchSuggestions: [],
@@ -26,7 +26,11 @@ class YoutubeAutocomplete extends React.Component {
 
   getSearchSuggestions(data = []) {
     let result = []
-    result = data.map(elem => elem[0])
+    result = data.map(elem => ({
+      text: elem[0],
+      id: shortid.generate(),
+    }))
+    console.log(result)
     return result
   }
 
@@ -49,6 +53,10 @@ class YoutubeAutocomplete extends React.Component {
     this.fetchData(this.state.inputValue)
   }
 
+  handleChange = selectedItems => {
+    console.log({ selectedItems })
+  }
+
   render() {
     const { searchSuggestions, inputValue } = this.state
     return (
@@ -56,9 +64,17 @@ class YoutubeAutocomplete extends React.Component {
         onInputValueChange={inputValue =>
           this.handleInputValueChange(inputValue)
         }
-        onChange={selection => console.log(selection)}
+        onStateChange={(selection, ...rest) => {
+          Object.keys(selection).forEach(each =>
+            console.log(`${each} ${this.selectedItem}`),
+          )
+          Object.keys(rest).forEach(each =>
+            console.log(`${each} ${this.selectedItem}`),
+          )
+        }}
+        onChange={this.handleChange}
+        itemToString={item => (item ? item.text : '')}
         inputValue={inputValue}
-        itemToString={item => console.log(item)}
       >
         {({
           getInputProps,
@@ -67,28 +83,29 @@ class YoutubeAutocomplete extends React.Component {
           getMenuProps,
           isOpen,
           inputValue,
+          highlightedIndex,
+          selectedItem,
         }) => (
           <div>
             <Input
-              {...getInputProps()}
-              placeholder="Search Youtube"
-              fullWidth={true}
+              {...getInputProps({
+                placeholder: 'Search Youtube',
+                fullWidth: true,
+              })}
             />
             {isOpen ? (
               <Paper square {...getMenuProps()}>
-                {searchSuggestions.map((eachSuggestion, index) => {
-                  return (
-                    <MenuItem
-                      {...getItemProps({
-                        key: shortid.generate(),
-                        index,
-                        item: eachSuggestion,
-                      })}
-                    >
-                      {eachSuggestion}
-                    </MenuItem>
-                  )
-                })}
+                {searchSuggestions.map((item, index) => (
+                  <MenuItem
+                    {...getItemProps({
+                      key: item.id,
+                      index,
+                      item,
+                    })}
+                  >
+                    {item.text}
+                  </MenuItem>
+                ))}
               </Paper>
             ) : null}
           </div>
@@ -99,10 +116,6 @@ class YoutubeAutocomplete extends React.Component {
 }
 
 class MenuItem extends React.Component {
-  constructor() {
-    super()
-  }
-
   render() {
     const { children } = this.props
     return <MenuItemMui>{children}</MenuItemMui>
