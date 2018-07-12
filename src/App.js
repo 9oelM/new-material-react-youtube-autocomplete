@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import YoutubeAutocomplete from './components/YoutubeAutocomplete'
+import YoutubeAutocomplete from './components/Core'
 class App extends Component {
   render() {
     return (
