@@ -1,5 +1,8 @@
 # New-Material-React-Youtube-Autocomplete
 
+## Why
+Other similar repos were out of date, so I needed a new component that meets `@material-ui/core^1.3.1`, `react^16.4.1`, `react-dom^16.4.1`.
+
 ## Usage example
 ```javascript
 <YoutubeAutocomplete
