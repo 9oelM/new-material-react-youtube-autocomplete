@@ -6,6 +6,11 @@ Other similar repos were out of date, so I needed a new component that meets `@m
 ## Demo
 [Here](https://9oelm.github.io/new-material-react-youtube-autocomplete/)
 
+## Install
+```
+npm --save install new-material-react-youtube-autocomplete
+```
+
 ## Usage example
 ```javascript
 <YoutubeAutocomplete
