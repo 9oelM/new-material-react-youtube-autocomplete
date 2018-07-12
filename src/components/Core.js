@@ -55,7 +55,12 @@ class Core extends React.Component {
 
   render() {
     const { searchSuggestions } = this.state
-    const { useMui } = this.prop
+    const {
+      useMui = true,
+      inputId = 'youtube-autocomplete-input',
+      menuId = 'youtube-autocomplete-menu',
+      itemClassName = 'youtube-autocomplete-menu',
+    } = this.props
 
     return (
       <Downshift
@@ -64,27 +69,56 @@ class Core extends React.Component {
       >
         {({ getInputProps, getItemProps, getMenuProps, isOpen }) => (
           <div>
-            <Input
-              {...getInputProps({
-                placeholder: 'Search Youtube',
-                fullWidth: true,
-              })}
-            />
-            {isOpen ? (
-              <Paper square {...getMenuProps()}>
-                {searchSuggestions.map((item, index) => (
-                  <MenuItem
-                    {...getItemProps({
-                      key: item.id,
-                      index,
-                      item,
-                    })}
-                  >
-                    {item.text}
-                  </MenuItem>
-                ))}
-              </Paper>
-            ) : null}
+            {useMui ? (
+              <React.Fragment>
+                <Input
+                  {...getInputProps({
+                    placeholder: 'Search Youtube',
+                    fullWidth: true,
+                  })}
+                />
+                {isOpen ? (
+                  <Paper square {...getMenuProps()}>
+                    {searchSuggestions.map((item, index) => (
+                      <MenuItem
+                        {...getItemProps({
+                          key: item.id,
+                          index,
+                          item,
+                        })}
+                      >
+                        {item.text}
+                      </MenuItem>
+                    ))}
+                  </Paper>
+                ) : null}
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <input
+                  id={inputId}
+                  {...getInputProps({
+                    placeholder: 'Search Youtube',
+                  })}
+                />
+                {isOpen ? (
+                  <div id={menuId} {...getMenuProps()}>
+                    {searchSuggestions.map((item, index) => (
+                      <div
+                        className={itemClassName}
+                        {...getItemProps({
+                          key: item.id,
+                          index,
+                          item,
+                        })}
+                      >
+                        {item.text}
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+              </React.Fragment>
+            )}
           </div>
         )}
       </Downshift>
