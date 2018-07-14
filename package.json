@@ -1,14 +1,13 @@
 {
   "name": "new-material-react-youtube-autocomplete",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "new youtube autocomplete component in React and Material UI",
-  "main": "dist/YoutubeAutocomplete.js",
+  "main": "dist/wrapper/YoutubeAutocomplete.js",
   "dependencies": {
     "@babel/cli": "^7.0.0-beta.53",
     "@material-ui/core": "^1.3.1",
     "ajv": "^6.5.2",
     "downshift": "^2.0.10",
-    "gh-pages": "^1.2.0",
     "jsonp": "^0.2.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
@@ -25,8 +24,10 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "prettier": "onchange '**/*.js' -- prettier --write {{changed}}",
-    "babel": "./node_modules/.bin/babel ./src/dist/YoutubeAutocomplete.js --watch --out-file ./dist/YoutubeAutocomplete.js",
-    "watch": "npm-run-all --parallel prettier babel",
+    "babel-watch-wrapper": "./node_modules/.bin/babel ./src/wrapper/YoutubeAutocomplete.js --watch --out-file ./dist/wrapper/YoutubeAutocomplete.js",
+    "babel-watch-core": "./node_modules/.bin/babel ./src/components/Core.js --watch --out-file ./dist/components/Core.js ./src/es5/components/Core.js",
+    "copy": "rm -rf ./src/es5 && cp -r ./dist ./src/es5/",
+    "watch": "npm-run-all --parallel prettier babel-watch-wrapper babel-watch-core",
     "sw": "npm-run-all --parallel watch start"
   },
   "devDependencies": {
@@ -34,6 +35,7 @@
     "@babel/core": "^7.0.0-beta.53",
     "@babel/preset-env": "^7.0.0-beta.53",
     "@babel/preset-react": "^7.0.0-beta.53",
+    "gh-pages": "^1.2.0",
     "npm-run-all": "^4.1.3",
     "onchange": "^4.0.0",
     "prettier": "^1.13.7"
