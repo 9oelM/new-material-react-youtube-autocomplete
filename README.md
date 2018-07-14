@@ -70,10 +70,10 @@ export default App
 ## Developing
 
 ### `npm run sw`
-Starts the development server and watches file changes to beautify & transpile them.
+Starts the development server on `localhost:8080` and watches file changes to beautify & transpile them.
 
 ## Todos
 * on Mouse Click on other places, close the autocompleting form.
 * add an example for `useMui = {false}`
 * add tests
-* 
+* add gulpfile as the project is getting a bit bigger than before..
