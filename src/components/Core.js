@@ -16,6 +16,7 @@ class Core extends React.Component {
   constructor(props) {
     super(props)
     this.handleInputValueChange = this.handleInputValueChange.bind(this)
+    this.handleItemToString = this.handleItemToString.bind(this)
     this.fetchData = this.fetchData.bind(this)
     this.getSearchSuggestions = this.getSearchSuggestions.bind(this)
     this.state = {
@@ -52,7 +53,9 @@ class Core extends React.Component {
     this.fetchData(_inputValue)
   }
 
-  handleItemToString = item => (item ? item.text : '')
+  handleItemToString(item) {
+    return item ? item.text : ''
+  }
 
   render() {
     const { searchSuggestions } = this.state

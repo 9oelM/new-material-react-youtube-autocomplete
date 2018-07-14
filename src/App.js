@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import YoutubeAutocomplete from './dist/YoutubeAutocomplete'
+import YoutubeAutocomplete from './es5/wrapper/YoutubeAutocomplete'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
