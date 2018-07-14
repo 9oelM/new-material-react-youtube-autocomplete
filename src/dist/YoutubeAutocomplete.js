@@ -1,6 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Core from '../components/Core'
+import Core from './Core'
+
+/*
+  Kind of a wrapper. Provided for future extension to other functions. 
+*/
 
 const YoutubeAutocomplete = ({
   useMui,
