@@ -1,5 +1,9 @@
 # New-Material-React-Youtube-Autocomplete
 
+## Version Logs (important)
+* `0.1.15`: npm module import breaks because the codes are not transpiled to es5. But es6 codes work, but when transpiled to es5 by babel, they still don't work--when you click on one of the autocompleted results, the input field's value does not change to that. Have to figure out why. 
+* `0.1.151` npm module import does not break. But still: when you click on one of the autocompleted results, the input field's value does not change to that (if you are not manually using `src/wrapper/YoutubeAutocomplete.js` which is in es6 code, not transpiled)
+
 ## Why
 Other similar repos were out of date, so I needed a new component that meets `@material-ui/core@^1.3.1`, `react@^16.4.1`, `react-dom@^16.4.1`.
 
@@ -77,3 +81,4 @@ Starts the development server on `localhost:8080` and watches file changes to be
 * add an example for `useMui = {false}`
 * add tests
 * add gulpfile as the project is getting a bit bigger than before..
+
