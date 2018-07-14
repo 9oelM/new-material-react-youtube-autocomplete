@@ -13,7 +13,12 @@ npm --save install new-material-react-youtube-autocomplete
 
 ## Usage example
 ```javascript
-<YoutubeAutocomplete
+import React, { Component } from 'react';
+import YoutubeAutocomplete from 'new-material-react-youtube-autocomplete';
+
+const App = () => {
+  return (
+  <YoutubeAutocomplete
   useMui = true,
   inputId = 'my-input',
   menuId = 'my-menu',
@@ -21,6 +26,10 @@ npm --save install new-material-react-youtube-autocomplete
   theme = createMuiTheme({
     primary: red,
   }) />
+  )
+}
+
+export default App
 ```
 ## Props
 
@@ -61,8 +70,10 @@ npm --save install new-material-react-youtube-autocomplete
 ## Developing
 
 ### `npm run sw`
-Starts the development server and watches file changes to beautify them.
+Starts the development server and watches file changes to beautify & transpile them.
 
 ## Todos
-
-### on Mouse Click on other places, close the autocompleting form.
+* on Mouse Click on other places, close the autocompleting form.
+* add an example for `useMui = {false}`
+* add tests
+* 
