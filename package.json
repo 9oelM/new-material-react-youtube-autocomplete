@@ -1,6 +1,6 @@
 {
   "name": "new-material-react-youtube-autocomplete",
-  "version": "0.1.15",
+  "version": "0.1.151",
   "description": "new youtube autocomplete component in React and Material UI",
   "main": "dist/wrapper/YoutubeAutocomplete.js",
   "dependencies": {
@@ -23,11 +23,13 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "prettier": "onchange '**/*.js' -- prettier --write {{changed}}",
+    "prettier": "onchange '**/*.js' -- prettier --write {{changed}} --ignore-path \"src/es5/**/*\"",
     "babel-watch-wrapper": "./node_modules/.bin/babel ./src/wrapper/YoutubeAutocomplete.js --watch --out-file ./dist/wrapper/YoutubeAutocomplete.js",
     "babel-watch-core": "./node_modules/.bin/babel ./src/components/Core.js --watch --out-file ./dist/components/Core.js ./src/es5/components/Core.js",
-    "copy": "rm -rf ./src/es5 && cp -r ./dist ./src/es5/",
-    "watch": "npm-run-all --parallel prettier babel-watch-wrapper babel-watch-core",
+    "removeAndCopy": "onchange './dist/**/*' -- npm-run-all remove copy",
+    "remove": "rm -rf ./src/es5",
+    "copy": "cp -r ./dist ./src/es5/",
+    "watch": "npm-run-all --parallel prettier babel-watch-wrapper babel-watch-core removeAndCopy",
     "sw": "npm-run-all --parallel watch start"
   },
   "devDependencies": {
