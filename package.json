@@ -1,6 +1,6 @@
 {
   "name": "new-material-react-youtube-autocomplete",
-  "version": "0.1.151",
+  "version": "0.2.0",
   "description": "new youtube autocomplete component in React and Material UI",
   "main": "dist/wrapper/YoutubeAutocomplete.js",
   "dependencies": {
@@ -24,8 +24,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "prettier": "onchange '**/*.js' -- prettier --write {{changed}} --ignore-path \"src/es5/**/*\"",
-    "babel-watch-wrapper": "./node_modules/.bin/babel ./src/wrapper/YoutubeAutocomplete.js --watch --out-file ./dist/wrapper/YoutubeAutocomplete.js",
-    "babel-watch-core": "./node_modules/.bin/babel ./src/components/Core.js --watch --out-file ./dist/components/Core.js ./src/es5/components/Core.js",
+    "babel-watch-wrapper": "NODE_ENV=development ./node_modules/.bin/babel ./src/wrapper/YoutubeAutocomplete.js --watch --out-file ./dist/wrapper/YoutubeAutocomplete.js",
+    "babel-watch-core": "NODE_ENV=development ./node_modules/.bin/babel ./src/components/Core.js --watch --out-file ./dist/components/Core.js ./src/es5/components/Core.js",
     "removeAndCopy": "onchange './dist/**/*' -- npm-run-all remove copy",
     "remove": "rm -rf ./src/es5",
     "copy": "cp -r ./dist ./src/es5/",
