@@ -21,13 +21,19 @@ import YoutubeAutocomplete from 'new-material-react-youtube-autocomplete';
 const App = () => {
   return (
   <YoutubeAutocomplete
-  useMui = true,
-  inputId = 'my-input',
-  menuId = 'my-menu',
-  itemClassName = 'my-items',
-  theme = createMuiTheme({
-    primary: red,
-  }) />
+    useMui = true,
+    placeholder = "search"
+    inputId = 'my-input',
+    menuId = 'my-menu',
+    itemClassName = 'my-items',
+    theme = createMuiTheme({
+      primary: red,
+    })
+    apiKey="AIzaSyB8R4Bqkx25_-c58L7v1QaLReVw1FWea28"
+    onSuggestError={error => console.log(`error: ${error}`)}
+    onSearchError={error => console.log(`error: ${error}`)}
+    onSearchResults={result => console.log(result)}
+  />
   )
 }
 
@@ -58,6 +64,22 @@ export default App
     primary: blue,
   })
   ```
+
+### `apiKey`
+* **Default value**: `''`
+* **Explanation**: This will be used to search videos on Youtube (not autocomplete, but real search)
+
+### `onSuggestError`
+* **Default value**: none
+* **Explanation**: Callback that operates once there is an error while getting *suggestions*. Receives err object as a parameter: `function(error){yourContent}`.
+
+### `onSearchError`
+* **Default value**: none
+* **Explanation**: Callback that operates once there is an error while getting *search results*. Receives err object as a parameter: `function(error){yourContent}`.
+
+### `onSearchResults`
+* **Default value**: none
+* **Explanation**: will be the callback function that receives search result in array. Can receive search results as an array: `function(searchResultArr){yourContent}`
 
 * **Explanation**: This is only applicable if you are using [Material UI](https://github.com/mui-org/material-ui). Create your own theme like this:
   ```javascript
