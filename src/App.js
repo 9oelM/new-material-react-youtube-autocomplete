@@ -49,7 +49,12 @@ class App extends Component {
           >
             new-material-react-youtube-autocomplete
           </Typography>
-          <YoutubeAutocomplete />
+          <YoutubeAutocomplete
+            apiKey="AIzaSyB8R4Bqkx25_-c58L7v1QaLReVw1FWea28"
+            onSuggestError={error => console.log(`error: ${error}`)}
+            onSearchError={error => console.log(`error: ${error}`)}
+            onSearchResults={result => console.log(result)}
+          />
         </Paper>
       </div>
     )
