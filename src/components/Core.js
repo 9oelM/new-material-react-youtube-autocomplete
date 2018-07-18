@@ -77,34 +77,32 @@ class Core extends React.Component {
         {({ getInputProps, getItemProps, getMenuProps, isOpen }) => (
           <div>
             {useMui ? (
-              <React.Fragment>
-                <MuiThemeProvider theme={theme}>
-                  <Input
-                    {...getInputProps({
-                      placeholder: 'Search Youtube',
-                      fullWidth: true,
-                    })}
-                  />
-                  {isOpen ? (
-                    <Paper square {...getMenuProps()}>
-                      {searchSuggestions.map((item, index) => (
-                        <MenuItem
-                          {...getItemProps({
-                            key: item.id,
-                            index,
-                            item,
-                            style: {
-                              zIndex: 1,
-                            },
-                          })}
-                        >
-                          {item.text}
-                        </MenuItem>
-                      ))}
-                    </Paper>
-                  ) : null}{' '}
-                </MuiThemeProvider>
-              </React.Fragment>
+              <MuiThemeProvider theme={theme}>
+                <Input
+                  {...getInputProps({
+                    placeholder: 'Search Youtube',
+                    fullWidth: true,
+                  })}
+                />
+                {isOpen ? (
+                  <Paper square {...getMenuProps()}>
+                    {searchSuggestions.map((item, index) => (
+                      <MenuItem
+                        {...getItemProps({
+                          key: item.id,
+                          index,
+                          item,
+                          style: {
+                            zIndex: 1,
+                          },
+                        })}
+                      >
+                        {item.text}
+                      </MenuItem>
+                    ))}
+                  </Paper>
+                ) : null}{' '}
+              </MuiThemeProvider>
             ) : (
               <React.Fragment>
                 <input
