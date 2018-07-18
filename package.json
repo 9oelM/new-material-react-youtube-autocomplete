@@ -1,11 +1,11 @@
 {
   "name": "new-material-react-youtube-autocomplete",
-  "version": "0.2.0",
+  "version": "0.2.01",
   "description": "new youtube autocomplete component in React and Material UI",
   "main": "dist/wrapper/YoutubeAutocomplete.js",
   "dependencies": {
     "@babel/cli": "^7.0.0-beta.53",
-    "@material-ui/core": "^1.3.1",
+    "@material-ui/core": "^1.4.0",
     "ajv": "^6.5.2",
     "downshift": "^2.0.10",
     "jsonp": "^0.2.1",
@@ -14,7 +14,8 @@
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
     "shortid": "^2.2.11",
-    "typeface-roboto": "0.0.54"
+    "typeface-roboto": "0.0.54",
+    "youtube-search": "^1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
