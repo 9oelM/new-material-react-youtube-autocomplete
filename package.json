@@ -2,7 +2,7 @@
   "name": "new-material-react-youtube-autocomplete",
   "version": "0.2.1",
   "description": "new youtube autocomplete component in React and Material UI",
-  "main": "src/dist/wrapper/YoutubeAutocomplete.js",
+  "main": "src/dist/Core.js",
   "dependencies": {
     "@babel/cli": "^7.0.0-beta.53",
     "@material-ui/core": "^1.4.0",
