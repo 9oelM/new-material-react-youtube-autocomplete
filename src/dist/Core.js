@@ -180,9 +180,6 @@ var Core =
       _this.handleItemToString = _this.handleItemToString.bind(
         _assertThisInitialized(_assertThisInitialized(_this)),
       )
-      _this.handleKeyDown = _this.handleKeyDown.bind(
-        _assertThisInitialized(_assertThisInitialized(_this)),
-      )
       _this.fetchSuggestionResults = _this.fetchSuggestionResults.bind(
         _assertThisInitialized(_assertThisInitialized(_this)),
       )

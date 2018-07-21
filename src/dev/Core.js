@@ -15,7 +15,6 @@ class Core extends React.Component {
     super(props)
     this.handleInputValueChange = this.handleInputValueChange.bind(this)
     this.handleItemToString = this.handleItemToString.bind(this)
-    this.handleKeyDown = this.handleKeyDown.bind(this)
     this.fetchSuggestionResults = this.fetchSuggestionResults.bind(this)
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
     this.getSearchSuggestions = this.getSearchSuggestions.bind(this)
