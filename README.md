@@ -21,8 +21,8 @@ import YoutubeAutocomplete from 'new-material-react-youtube-autocomplete';
 const App = () => {
   return (
   <YoutubeAutocomplete
-    useMui = true,
-    placeholder = "search"
+    useMui = {true},
+    placeholderText = "search"
     inputId = 'my-input',
     menuId = 'my-menu',
     itemClassName = 'my-items',
@@ -64,10 +64,19 @@ export default App
     primary: blue,
   })
   ```
+* **Explanation**: This is only applicable if you are using [Material UI](https://github.com/mui-org/material-ui). Create your own theme like this:
+  ```javascript
+  import { createMuiTheme } from '@material-ui/core/styles'
+  import red from '@material-ui/core/colors/red'
+  const theme = createMuiTheme({
+    primary: red,
+    ...(additional theme configurations)
+  })
+  ```
 
 ### `apiKey`
 * **Default value**: `''`
-* **Explanation**: This will be used to search videos on Youtube (not autocomplete, but real search)
+* **Explanation**: This will be used to search videos on Youtube (not autocomplete, but real search). For detailed steps to get the api key, [refer to this link.](https://www.slickremix.com/docs/get-api-key-for-youtube/) **If you do not supply a value to this prop, the youtube video search callback (`onSearchResults`) would not work.
 
 ### `onSuggestError`
 * **Default value**: none
@@ -80,16 +89,6 @@ export default App
 ### `onSearchResults`
 * **Default value**: none
 * **Explanation**: will be the callback function that receives search result in array. Can receive search results as an array: `function(searchResultArr){yourContent}`
-
-* **Explanation**: This is only applicable if you are using [Material UI](https://github.com/mui-org/material-ui). Create your own theme like this:
-  ```javascript
-  import { createMuiTheme } from '@material-ui/core/styles'
-  import red from '@material-ui/core/colors/red'
-  const theme = createMuiTheme({
-    primary: red,
-    ...(additional color configurations)
-  })
-  ```
 
 ## Developing
 
@@ -107,3 +106,4 @@ Starts the development server on `localhost:8080` and watches file changes to be
 * `0.1.15`: npm module import breaks because the codes are not transpiled to es5. But es6 codes work, but when transpiled to es5 by babel, they still don't work--when you click on one of the autocompleted results, the input field's value does not change to that. Have to figure out why. 
 * `0.1.151` npm module import does not break. But still: when you click on one of the autocompleted results, the input field's value does not change to that (if you are not manually using `src/wrapper/YoutubeAutocomplete.js` which is in es6 code, not transpiled)
 * `0.2` Error fixed. Now the transpiled code is OK.
+* `0.3` Callbacks added
