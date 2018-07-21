@@ -22,6 +22,7 @@ class Core extends React.Component {
     this.state = {
       inputValue: '',
       searchSuggestions: [],
+      isMenuOpen: true,
     }
   }
 
@@ -46,7 +47,7 @@ class Core extends React.Component {
       let searchResult = data[1]
 
       self.state.searchSuggestions = self.getSearchSuggestions(searchResult)
-    }) // for some reason, `fetch (https://github.com/github/fetch)` does not work on localhost hosting enviromnet due to CORS problems. But for some reason, jsonp works without any problems...
+    }) // use jsonp at your risk
   }
 
   fetchSearchResults(searchWord) {
@@ -75,15 +76,8 @@ class Core extends React.Component {
     return item ? item.text : ''
   }
 
-  handleKeyDown(e) {
-    console.log('handleKeyDown')
-    if (e.key === 'Enter') {
-      this.fetchSearchResults(this.state.inputValue)
-    }
-  }
-
   render() {
-    const { searchSuggestions } = this.state
+    const { searchSuggestions, isMenuOpen } = this.state
     const {
       useMui = true,
       inputId = 'youtube-autocomplete-input',
@@ -99,7 +93,7 @@ class Core extends React.Component {
       <Downshift
         onInputValueChange={this.handleInputValueChange}
         itemToString={this.handleItemToString}
-        onSelect={selectedItem => this.fetchSearchResults(selectedItem.text)}
+        isOpen={isMenuOpen}
       >
         {({ getInputProps, getItemProps, getMenuProps, isOpen, onKeyDown }) => (
           <div>
@@ -110,9 +104,10 @@ class Core extends React.Component {
                     placeholder: placeholderText,
                     fullWidth: true,
                     onKeyDown: e => {
+                      this.setState({ isMenuOpen: true })
                       if (e.key === 'Enter') {
                         this.fetchSearchResults(this.state.inputValue)
-                        isOpen = false
+                        this.setState({ isMenuOpen: false })
                       }
                     },
                   })}
@@ -127,6 +122,10 @@ class Core extends React.Component {
                           item,
                           style: {
                             zIndex: 1,
+                          },
+                          onClick: e => {
+                            this.fetchSearchResults(this.state.inputValue)
+                            this.setState({ isMenuOpen: false })
                           },
                         })}
                       >
