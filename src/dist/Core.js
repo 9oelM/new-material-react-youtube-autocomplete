@@ -195,6 +195,7 @@ var Core =
       _this.state = {
         inputValue: '',
         searchSuggestions: [],
+        isMenuOpen: true,
       }
       return _this
     }
@@ -235,7 +236,7 @@ var Core =
                 searchResult,
               )
             },
-          ) // for some reason, `fetch (https://github.com/github/fetch)` does not work on localhost hosting enviromnet due to CORS problems. But for some reason, jsonp works without any problems...
+          ) // use jsonp at your risk
         },
       },
       {
@@ -275,21 +276,13 @@ var Core =
         },
       },
       {
-        key: 'handleKeyDown',
-        value: function handleKeyDown(e) {
-          console.log('handleKeyDown')
-
-          if (e.key === 'Enter') {
-            this.fetchSearchResults(this.state.inputValue)
-          }
-        },
-      },
-      {
         key: 'render',
         value: function render() {
           var _this2 = this
 
-          var searchSuggestions = this.state.searchSuggestions
+          var _this$state = this.state,
+            searchSuggestions = _this$state.searchSuggestions,
+            isMenuOpen = _this$state.isMenuOpen
           var _this$props = this.props,
             _this$props$useMui = _this$props.useMui,
             useMui = _this$props$useMui === void 0 ? true : _this$props$useMui,
@@ -325,9 +318,7 @@ var Core =
             {
               onInputValueChange: this.handleInputValueChange,
               itemToString: this.handleItemToString,
-              onSelect: function onSelect(selectedItem) {
-                return _this2.fetchSearchResults(selectedItem.text)
-              },
+              isOpen: isMenuOpen,
             },
             function(_ref) {
               var getInputProps = _ref.getInputProps,
@@ -350,10 +341,16 @@ var Core =
                           placeholder: placeholderText,
                           fullWidth: true,
                           onKeyDown: function onKeyDown(e) {
+                            _this2.setState({
+                              isMenuOpen: true,
+                            })
+
                             if (e.key === 'Enter') {
                               _this2.fetchSearchResults(_this2.state.inputValue)
 
-                              isOpen = false
+                              _this2.setState({
+                                isMenuOpen: false,
+                              })
                             }
                           },
                         }),
@@ -376,6 +373,15 @@ var Core =
                                   item: item,
                                   style: {
                                     zIndex: 1,
+                                  },
+                                  onClick: function onClick(e) {
+                                    _this2.fetchSearchResults(
+                                      _this2.state.inputValue,
+                                    )
+
+                                    _this2.setState({
+                                      isMenuOpen: false,
+                                    })
                                   },
                                 }),
                                 item.text,
