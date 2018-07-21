@@ -24,7 +24,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "prettier": "onchange '**/*.js' -- prettier --write {{changed}} --ignore-path \"src/es5/**/*\"",
+    "prettier": "onchange '**/*.js' -- prettier --write {{changed}}",
     "babel-watch": "NODE_ENV=development ./node_modules/.bin/babel ./src/dev --watch --out-dir ./src/dist",
     "watch": "npm-run-all --parallel prettier babel-watch",
     "sw": "npm-run-all --parallel watch start"
