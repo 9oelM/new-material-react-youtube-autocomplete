@@ -51,13 +51,14 @@ class Core extends React.Component {
 
   fetchSearchResults(searchWord) {
     const self = this
+    const {option}= this.props
 
-    let option = {
+    let opt = {
       maxResults: 15,
-      key: this.props.apiKey,
+      ...option
     }
 
-    searchYoutube(searchWord, option, function(err, results) {
+    searchYoutube(searchWord, opt, function(err, results) {
       if (err) {
         self.props.onSearchError(err)
         return

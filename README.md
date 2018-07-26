@@ -30,7 +30,11 @@ const App = () => {
     theme = {createMuiTheme({
       primary: red,
     })}
-    apiKey="AIzaSyB8R4Bqkx25_-c58L7v1QaLReVw1FWea28"
+    option={{
+      maxResults:15,
+      type:[video, playlist],
+      key: 'AIzaSyB8R4Bqkx25_-c58L7v1QaLReVw1FWea28'
+    }}
     onSuggestError={error => console.log(`error: ${error}`)}
     onSearchError={error => console.log(`error: ${error}`)}
     onSearchResults={result => console.log(result)}
@@ -75,9 +79,19 @@ export default App
   })
   ```
 
-### `apiKey`
-* **Default value**: `''`
+for more theming techniques, refer to [this link](https://stackoverflow.com/questions/34971998/how-to-apply-custom-theme-in-material-ui)
+### `option`
+* **Default value**: 
+  ```javascript
+  {
+    maxResults: 15
+  }
+  ```
 * **Explanation**: This will be used to search videos on Youtube (not autocomplete, but real search). For detailed steps to get the api key, [refer to this link.](https://www.slickremix.com/docs/get-api-key-for-youtube/) **If you do not supply a value to this prop, the youtube video search callback (`onSearchResults`) would not work.
+
+You can add options like `type` or `key` (which is necessary).
+
+For more option parameters, see [youtube api](https://developers.google.com/youtube/v3/docs/search/list).
 
 ### `onSuggestError`
 * **Default value**: none
