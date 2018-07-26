@@ -107,3 +107,4 @@ Starts the development server on `localhost:8080` and watches file changes to be
 * `0.1.151` npm module import does not break. But still: when you click on one of the autocompleted results, the input field's value does not change to that (if you are not manually using `src/wrapper/YoutubeAutocomplete.js` which is in es6 code, not transpiled)
 * `0.2` Error fixed. Now the transpiled code is OK.
 * `0.3` Callbacks added
+* `0.3.1` Added id `youtube-autocomplete` to the uppermost component, which is `Downshift`.
