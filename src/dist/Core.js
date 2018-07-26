@@ -311,127 +311,135 @@ var Core =
                 ? 'Search youtube'
                 : _this$props$placehold
           return _react.default.createElement(
-            _downshift.default,
+            'div',
             {
-              onInputValueChange: this.handleInputValueChange,
-              itemToString: this.handleItemToString,
-              isOpen: isMenuOpen,
+              id: 'youtube-autocomplete',
             },
-            function(_ref) {
-              var getInputProps = _ref.getInputProps,
-                getItemProps = _ref.getItemProps,
-                getMenuProps = _ref.getMenuProps,
-                isOpen = _ref.isOpen,
-                onKeyDown = _ref.onKeyDown
-              return _react.default.createElement(
-                'div',
-                null,
-                useMui
-                  ? _react.default.createElement(
-                      _styles.MuiThemeProvider,
-                      {
-                        theme: theme,
-                      },
-                      _react.default.createElement(
-                        _Input.default,
-                        getInputProps({
-                          placeholder: placeholderText,
-                          fullWidth: true,
-                          onKeyDown: function onKeyDown(e) {
-                            _this2.setState({
-                              isMenuOpen: true,
-                            })
-
-                            if (e.key === 'Enter') {
-                              _this2.fetchSearchResults(_this2.state.inputValue)
-
-                              _this2.setState({
-                                isMenuOpen: false,
-                              })
-                            }
-                          },
-                        }),
-                      ),
-                      isOpen
-                        ? _react.default.createElement(
-                            _Paper.default,
-                            _extends(
-                              {
-                                square: true,
-                              },
-                              getMenuProps(),
-                            ),
-                            searchSuggestions.map(function(item, index) {
-                              return _react.default.createElement(
-                                _MenuItem.default,
-                                getItemProps({
-                                  key: item.id,
-                                  index: index,
-                                  item: item,
-                                  style: {
-                                    zIndex: 1,
-                                  },
-                                  onClick: function onClick(e) {
-                                    _this2.fetchSearchResults(
-                                      _this2.state.inputValue,
-                                    )
-
-                                    _this2.setState({
-                                      isMenuOpen: false,
-                                    })
-                                  },
-                                }),
-                                item.text,
-                              )
-                            }),
-                          )
-                        : null,
-                    )
-                  : _react.default.createElement(
-                      _react.default.Fragment,
-                      null,
-                      _react.default.createElement(
-                        'input',
-                        _extends(
-                          {
-                            id: inputId,
-                          },
+            _react.default.createElement(
+              _downshift.default,
+              {
+                onInputValueChange: this.handleInputValueChange,
+                itemToString: this.handleItemToString,
+                isOpen: isMenuOpen,
+              },
+              function(_ref) {
+                var getInputProps = _ref.getInputProps,
+                  getItemProps = _ref.getItemProps,
+                  getMenuProps = _ref.getMenuProps,
+                  isOpen = _ref.isOpen,
+                  onKeyDown = _ref.onKeyDown
+                return _react.default.createElement(
+                  'div',
+                  null,
+                  useMui
+                    ? _react.default.createElement(
+                        _styles.MuiThemeProvider,
+                        {
+                          theme: theme,
+                        },
+                        _react.default.createElement(
+                          _Input.default,
                           getInputProps({
                             placeholder: placeholderText,
-                            onKeyDown: onKeyDown,
+                            fullWidth: true,
+                            onKeyDown: function onKeyDown(e) {
+                              _this2.setState({
+                                isMenuOpen: true,
+                              })
+
+                              if (e.key === 'Enter') {
+                                _this2.fetchSearchResults(
+                                  _this2.state.inputValue,
+                                )
+
+                                _this2.setState({
+                                  isMenuOpen: false,
+                                })
+                              }
+                            },
                           }),
                         ),
-                      ),
-                      isOpen
-                        ? _react.default.createElement(
-                            'div',
-                            _extends(
-                              {
-                                id: menuId,
-                              },
-                              getMenuProps(),
-                            ),
-                            searchSuggestions.map(function(item, index) {
-                              return _react.default.createElement(
-                                'div',
-                                _extends(
-                                  {
-                                    className: itemClassName,
-                                  },
+                        isOpen
+                          ? _react.default.createElement(
+                              _Paper.default,
+                              _extends(
+                                {
+                                  square: true,
+                                },
+                                getMenuProps(),
+                              ),
+                              searchSuggestions.map(function(item, index) {
+                                return _react.default.createElement(
+                                  _MenuItem.default,
                                   getItemProps({
                                     key: item.id,
                                     index: index,
                                     item: item,
+                                    style: {
+                                      zIndex: 1,
+                                    },
+                                    onClick: function onClick(e) {
+                                      _this2.fetchSearchResults(
+                                        _this2.state.inputValue,
+                                      )
+
+                                      _this2.setState({
+                                        isMenuOpen: false,
+                                      })
+                                    },
                                   }),
-                                ),
-                                item.text,
-                              )
+                                  item.text,
+                                )
+                              }),
+                            )
+                          : null,
+                      )
+                    : _react.default.createElement(
+                        _react.default.Fragment,
+                        null,
+                        _react.default.createElement(
+                          'input',
+                          _extends(
+                            {
+                              id: inputId,
+                            },
+                            getInputProps({
+                              placeholder: placeholderText,
+                              onKeyDown: onKeyDown,
                             }),
-                          )
-                        : null,
-                    ),
-              )
-            },
+                          ),
+                        ),
+                        isOpen
+                          ? _react.default.createElement(
+                              'div',
+                              _extends(
+                                {
+                                  id: menuId,
+                                },
+                                getMenuProps(),
+                              ),
+                              searchSuggestions.map(function(item, index) {
+                                return _react.default.createElement(
+                                  'div',
+                                  _extends(
+                                    {
+                                      className: itemClassName,
+                                    },
+                                    getItemProps({
+                                      key: item.id,
+                                      index: index,
+                                      item: item,
+                                    }),
+                                  ),
+                                  item.text,
+                                )
+                              }),
+                            )
+                          : null,
+                      ),
+                )
+              },
+            ),
           )
         },
       },

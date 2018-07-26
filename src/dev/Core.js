@@ -89,11 +89,12 @@ class Core extends React.Component {
     } = this.props
 
     return (
+      <div 
+        id="youtube-autocomplete">
       <Downshift
         onInputValueChange={this.handleInputValueChange}
         itemToString={this.handleItemToString}
         isOpen={isMenuOpen}
-        id="youtube-autocomplete"
       >
         {({ getInputProps, getItemProps, getMenuProps, isOpen, onKeyDown }) => (
           <div>
@@ -165,6 +166,7 @@ class Core extends React.Component {
           </div>
         )}
       </Downshift>
+      </div>
     )
   }
 }
