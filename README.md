@@ -17,6 +17,7 @@ npm --save install new-material-react-youtube-autocomplete
 ```javascript
 import React, { Component } from 'react';
 import YoutubeAutocomplete from 'new-material-react-youtube-autocomplete';
+import { createMuiTheme } from '@material-ui/core/styles'
 
 const App = () => {
   return (
@@ -26,9 +27,9 @@ const App = () => {
     inputId = 'my-input',
     menuId = 'my-menu',
     itemClassName = 'my-items',
-    theme = createMuiTheme({
+    theme = {createMuiTheme({
       primary: red,
-    })
+    })}
     apiKey="AIzaSyB8R4Bqkx25_-c58L7v1QaLReVw1FWea28"
     onSuggestError={error => console.log(`error: ${error}`)}
     onSearchError={error => console.log(`error: ${error}`)}
@@ -89,6 +90,9 @@ export default App
 ### `onSearchResults`
 * **Default value**: none
 * **Explanation**: will be the callback function that receives search result in array. Can receive search results as an array: `function(searchResultArr){yourContent}`
+
+## Notes on the root element (`div`)
+It's got the id `youtube-autocomplete` for css stylings like z-index, which could be quite important for autocomplete boxes. 
 
 ## Developing
 
