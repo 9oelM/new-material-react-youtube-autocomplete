@@ -93,6 +93,7 @@ class Core extends React.Component {
         onInputValueChange={this.handleInputValueChange}
         itemToString={this.handleItemToString}
         isOpen={isMenuOpen}
+        id="youtube-autocomplete"
       >
         {({ getInputProps, getItemProps, getMenuProps, isOpen, onKeyDown }) => (
           <div>
