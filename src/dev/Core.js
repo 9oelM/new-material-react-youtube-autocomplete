@@ -39,9 +39,9 @@ class Core extends React.Component {
         '//suggestqueries.google.com/complete/search?client=youtube&ds=yt&q='
 
     jsonp(`${googleAutoSuggestURL}${query}`, function(error, data) {
-      if (error) {
-        self.props.onSuggestError(error)
-        return
+      if (error && self.props.onSuggestError) {
+          self.props.onSuggestError(error)
+          return
       }
       let searchResult = data[1]
 
@@ -59,17 +59,18 @@ class Core extends React.Component {
     }
 
     searchYoutube(searchWord, opt, function(err, results) {
-      if (err) {
+      if (err && self.props.onSearchError) {
         self.props.onSearchError(err)
         return
       }
-      self.props.onSearchResults(results)
+      self.props.onSearchResults? self.props.onSearchResults(results) : ()=>{}
     })
   }
 
   handleInputValueChange(_inputValue) {
-    this.setState({ inputValue: _inputValue })
     this.fetchSuggestionResults(_inputValue)
+    
+    this.setState({ inputValue: _inputValue })
   }
 
   handleItemToString(item) {
@@ -87,6 +88,7 @@ class Core extends React.Component {
         primary: blue,
       }),
       placeholderText = 'Search youtube',
+      onSearchTrigger
     } = this.props
 
     return (
@@ -97,7 +99,7 @@ class Core extends React.Component {
         itemToString={this.handleItemToString}
         isOpen={isMenuOpen}
       >
-        {({ getInputProps, getItemProps, getMenuProps, isOpen, onKeyDown }) => (
+        {({ getInputProps, getItemProps, getMenuProps, isOpen, onKeyDown, selectedItem }) => (
           <div>
             {useMui ? (
               <MuiThemeProvider theme={theme}>
@@ -108,8 +110,10 @@ class Core extends React.Component {
                     onKeyDown: e => {
                       this.setState({ isMenuOpen: true })
                       if (e.key === 'Enter') {
+                        // it processes it too fast that the previous inputValue is searched. 
                         this.fetchSearchResults(this.state.inputValue)
                         this.setState({ isMenuOpen: false })
+                        onSearchTrigger ? onSearchTrigger(this.state.inputValue) : f=>f
                       }
                     },
                   })}
@@ -128,6 +132,7 @@ class Core extends React.Component {
                           onClick: e => {
                             this.fetchSearchResults(this.state.inputValue)
                             this.setState({ isMenuOpen: false })
+                            onSearchTrigger ? onSearchTrigger(this.state.inputValue) : f=>f
                           },
                         })}
                       >
@@ -143,7 +148,15 @@ class Core extends React.Component {
                   id={inputId}
                   {...getInputProps({
                     placeholder: placeholderText,
-                    onKeyDown: onKeyDown,
+                    fullWidth: true,
+                    onKeyDown: e => {
+                      this.setState({ isMenuOpen: true })
+                      if (e.key === 'Enter') {
+                        this.fetchSearchResults(this.state.inputValue)
+                        this.setState({ isMenuOpen: false })
+                        onSearchTrigger ? onSearchTrigger(this.state.inputValue) : f=>f
+                      }
+                    },
                   })}
                 />
                 {isOpen ? (
@@ -155,6 +168,14 @@ class Core extends React.Component {
                           key: item.id,
                           index,
                           item,
+                          style: {
+                            zIndex: 1,
+                          },
+                          onClick: e => {
+                            this.fetchSearchResults(this.state.inputValue)
+                            this.setState({ isMenuOpen: false })
+                            onSearchTrigger ? onSearchTrigger(this.state.inputValue) : f=>f
+                          },
                         })}
                       >
                         {item.text}
