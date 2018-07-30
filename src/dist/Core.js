@@ -221,6 +221,9 @@ var Core =
       _this.getSearchSuggestions = _this.getSearchSuggestions.bind(
         _assertThisInitialized(_assertThisInitialized(_this)),
       )
+      _this.handleOnSelect = _this.handleOnSelect.bind(
+        _assertThisInitialized(_assertThisInitialized(_this)),
+      )
       _this.state = {
         inputValue: '',
         searchSuggestions: [],
@@ -308,6 +311,21 @@ var Core =
         },
       },
       {
+        key: 'handleOnSelect',
+        value: function handleOnSelect(selectedItem, stateAndHelpers) {
+          var onSearchTrigger = this.props.onSearchTrigger
+          this.fetchSearchResults(selectedItem.text)
+          this.setState({
+            isMenuOpen: false,
+          })
+          onSearchTrigger
+            ? onSearchTrigger(selectedItem.text)
+            : function(f) {
+                return f
+              }
+        },
+      },
+      {
         key: 'render',
         value: function render() {
           var _this2 = this
@@ -357,14 +375,14 @@ var Core =
                 onInputValueChange: this.handleInputValueChange,
                 itemToString: this.handleItemToString,
                 isOpen: isMenuOpen,
+                onSelect: this.handleOnSelect,
               },
               function(_ref) {
                 var getInputProps = _ref.getInputProps,
                   getItemProps = _ref.getItemProps,
                   getMenuProps = _ref.getMenuProps,
                   isOpen = _ref.isOpen,
-                  onKeyDown = _ref.onKeyDown,
-                  selectedItem = _ref.selectedItem
+                  onKeyDown = _ref.onKeyDown
                 return _react.default.createElement(
                   'div',
                   null,
@@ -421,23 +439,6 @@ var Core =
                                     item: item,
                                     style: {
                                       zIndex: 1,
-                                    },
-                                    onClick: function onClick(e) {
-                                      _this2.fetchSearchResults(
-                                        _this2.state.inputValue,
-                                      )
-
-                                      _this2.setState({
-                                        isMenuOpen: false,
-                                      })
-
-                                      onSearchTrigger
-                                        ? onSearchTrigger(
-                                            _this2.state.inputValue,
-                                          )
-                                        : function(f) {
-                                            return f
-                                          }
                                     },
                                   }),
                                   item.text,
@@ -504,23 +505,6 @@ var Core =
                                       item: item,
                                       style: {
                                         zIndex: 1,
-                                      },
-                                      onClick: function onClick(e) {
-                                        _this2.fetchSearchResults(
-                                          _this2.state.inputValue,
-                                        )
-
-                                        _this2.setState({
-                                          isMenuOpen: false,
-                                        })
-
-                                        onSearchTrigger
-                                          ? onSearchTrigger(
-                                              _this2.state.inputValue,
-                                            )
-                                          : function(f) {
-                                              return f
-                                            }
                                       },
                                     }),
                                   ),

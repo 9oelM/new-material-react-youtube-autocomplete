@@ -18,6 +18,7 @@ class Core extends React.Component {
     this.fetchSuggestionResults = this.fetchSuggestionResults.bind(this)
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
     this.getSearchSuggestions = this.getSearchSuggestions.bind(this)
+    this.handleOnSelect = this.handleOnSelect.bind(this)
     this.state = {
       inputValue: '',
       searchSuggestions: [],
@@ -76,6 +77,13 @@ class Core extends React.Component {
   handleItemToString(item) {
     return item ? item.text : ''
   }
+  
+  handleOnSelect(selectedItem, stateAndHelpers){
+    const { onSearchTrigger } = this.props
+    this.fetchSearchResults(selectedItem.text)
+    this.setState({ isMenuOpen: false })
+    onSearchTrigger ? onSearchTrigger(selectedItem.text) : f=>f
+  }
 
   render() {
     const { searchSuggestions, isMenuOpen } = this.state
@@ -98,8 +106,9 @@ class Core extends React.Component {
         onInputValueChange={this.handleInputValueChange}
         itemToString={this.handleItemToString}
         isOpen={isMenuOpen}
+        onSelect={this.handleOnSelect}
       >
-        {({ getInputProps, getItemProps, getMenuProps, isOpen, onKeyDown, selectedItem }) => (
+        {({ getInputProps, getItemProps, getMenuProps, isOpen, onKeyDown }) => (
           <div>
             {useMui ? (
               <MuiThemeProvider theme={theme}>
@@ -128,11 +137,6 @@ class Core extends React.Component {
                           item,
                           style: {
                             zIndex: 1,
-                          },
-                          onClick: e => {
-                            this.fetchSearchResults(this.state.inputValue)
-                            this.setState({ isMenuOpen: false })
-                            onSearchTrigger ? onSearchTrigger(this.state.inputValue) : f=>f
                           },
                         })}
                       >
@@ -170,11 +174,6 @@ class Core extends React.Component {
                           item,
                           style: {
                             zIndex: 1,
-                          },
-                          onClick: e => {
-                            this.fetchSearchResults(this.state.inputValue)
-                            this.setState({ isMenuOpen: false })
-                            onSearchTrigger ? onSearchTrigger(this.state.inputValue) : f=>f
                           },
                         })}
                       >
