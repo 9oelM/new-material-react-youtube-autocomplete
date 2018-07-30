@@ -18,6 +18,7 @@ class Core extends React.Component {
     this.fetchSuggestionResults = this.fetchSuggestionResults.bind(this)
     this.fetchSearchResults = this.fetchSearchResults.bind(this)
     this.getSearchSuggestions = this.getSearchSuggestions.bind(this)
+    this.handleOnSelect = this.handleOnSelect.bind(this)
     this.state = {
       inputValue: '',
       searchSuggestions: [],
@@ -39,9 +40,9 @@ class Core extends React.Component {
         '//suggestqueries.google.com/complete/search?client=youtube&ds=yt&q='
 
     jsonp(`${googleAutoSuggestURL}${query}`, function(error, data) {
-      if (error) {
-        self.props.onSuggestError(error)
-        return
+      if (error && self.props.onSuggestError) {
+          self.props.onSuggestError(error)
+          return
       }
       let searchResult = data[1]
 
@@ -59,21 +60,29 @@ class Core extends React.Component {
     }
 
     searchYoutube(searchWord, opt, function(err, results) {
-      if (err) {
+      if (err && self.props.onSearchError) {
         self.props.onSearchError(err)
         return
       }
-      self.props.onSearchResults(results)
+      self.props.onSearchResults? self.props.onSearchResults(results) : ()=>{}
     })
   }
 
   handleInputValueChange(_inputValue) {
-    this.setState({ inputValue: _inputValue })
     this.fetchSuggestionResults(_inputValue)
+    
+    this.setState({ inputValue: _inputValue })
   }
 
   handleItemToString(item) {
     return item ? item.text : ''
+  }
+  
+  handleOnSelect(selectedItem, stateAndHelpers){
+    const { onSearchTrigger } = this.props
+    this.fetchSearchResults(selectedItem.text)
+    this.setState({ isMenuOpen: false })
+    onSearchTrigger ? onSearchTrigger(selectedItem.text) : f=>f
   }
 
   render() {
@@ -87,6 +96,7 @@ class Core extends React.Component {
         primary: blue,
       }),
       placeholderText = 'Search youtube',
+      onSearchTrigger
     } = this.props
 
     return (
@@ -96,6 +106,7 @@ class Core extends React.Component {
         onInputValueChange={this.handleInputValueChange}
         itemToString={this.handleItemToString}
         isOpen={isMenuOpen}
+        onSelect={this.handleOnSelect}
       >
         {({ getInputProps, getItemProps, getMenuProps, isOpen, onKeyDown }) => (
           <div>
@@ -108,8 +119,10 @@ class Core extends React.Component {
                     onKeyDown: e => {
                       this.setState({ isMenuOpen: true })
                       if (e.key === 'Enter') {
+                        // it processes it too fast that the previous inputValue is searched. 
                         this.fetchSearchResults(this.state.inputValue)
                         this.setState({ isMenuOpen: false })
+                        onSearchTrigger ? onSearchTrigger(this.state.inputValue) : f=>f
                       }
                     },
                   })}
@@ -125,10 +138,6 @@ class Core extends React.Component {
                           style: {
                             zIndex: 1,
                           },
-                          onClick: e => {
-                            this.fetchSearchResults(this.state.inputValue)
-                            this.setState({ isMenuOpen: false })
-                          },
                         })}
                       >
                         {item.text}
@@ -143,7 +152,15 @@ class Core extends React.Component {
                   id={inputId}
                   {...getInputProps({
                     placeholder: placeholderText,
-                    onKeyDown: onKeyDown,
+                    fullWidth: true,
+                    onKeyDown: e => {
+                      this.setState({ isMenuOpen: true })
+                      if (e.key === 'Enter') {
+                        this.fetchSearchResults(this.state.inputValue)
+                        this.setState({ isMenuOpen: false })
+                        onSearchTrigger ? onSearchTrigger(this.state.inputValue) : f=>f
+                      }
+                    },
                   })}
                 />
                 {isOpen ? (
@@ -155,6 +172,9 @@ class Core extends React.Component {
                           key: item.id,
                           index,
                           item,
+                          style: {
+                            zIndex: 1,
+                          },
                         })}
                       >
                         {item.text}

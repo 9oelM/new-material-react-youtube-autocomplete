@@ -32,12 +32,13 @@ const App = () => {
     })}
     option={{
       maxResults:15,
-      type:[video, playlist],
+      type:['video', 'playlist'],
       key: 'AIzaSyB8R4Bqkx25_-c58L7v1QaLReVw1FWea28'
     }}
     onSuggestError={error => console.log(`error: ${error}`)}
     onSearchError={error => console.log(`error: ${error}`)}
     onSearchResults={result => console.log(result)}
+    onSearchTrigger={inputValue => console.log(`${inputValue} is being searched.`)}
   />
   )
 }
@@ -104,6 +105,10 @@ For more option parameters, see [youtube api](https://developers.google.com/yout
 ### `onSearchResults`
 * **Default value**: none
 * **Explanation**: will be the callback function that receives search result in array. Can receive search results as an array: `function(searchResultArr){yourContent}`
+
+### `onSearchTrigger`
+* **Default value**: none
+* **Explanation**: This callback is run when the component starts searching the videos on Youtube (easily said, when you hit Enter to search). You get the current input value as the parameter: `function(inputValue){..}`
 
 ## Notes on the root element (`div`)
 It's got the id `youtube-autocomplete` for css stylings like z-index, which could be quite important for autocomplete boxes. 

@@ -58,6 +58,9 @@ class App extends Component {
             onSuggestError={error => console.log(`error: ${error}`)}
             onSearchError={error => console.log(`error: ${error}`)}
             onSearchResults={result => console.log(result)}
+            onSearchTrigger={inputValue =>
+              console.log(`${inputValue} is being searched.`)
+            }
           />
         </Paper>
       </div>
