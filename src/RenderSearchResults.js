@@ -13,10 +13,15 @@ const styles = {
   heading: {
     padding: '50px',
   },
+  image: {
+    height: '180px',
+    width: '320px',
+  },
 }
 
 const RenderSearchResults = ({ searchWord, searchResults, classes }) => {
   const resultsView = searchResults.map(item => {
+    console.log(item.thumbnails.medium.url.toString())
     return (
       <Card className={classes.card} key={shortid.generate()}>
         <CardContent>
@@ -26,7 +31,8 @@ const RenderSearchResults = ({ searchWord, searchResults, classes }) => {
           <Typography component="p">{item.description}</Typography>
         </CardContent>
         <CardMedia
-          image={item.thumbnails.medium.toString()}
+          className={classes.image}
+          image={item.thumbnails.medium.url.toString()}
           title={item.title}
         />
       </Card>

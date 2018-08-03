@@ -75,9 +75,10 @@ class App extends Component {
               }}
               onSuggestError={error => console.log(`error: ${error}`)}
               onSearchError={error => console.log(`error: ${error}`)}
-              onSearchResults={result =>
+              onSearchResults={result => {
                 this.setState({ searchResults: result })
-              }
+                console.log(result)
+              }}
               onSearchTrigger={inputValue =>
                 this.setState({ searchWord: inputValue })
               }
