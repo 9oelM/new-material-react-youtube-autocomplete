@@ -283,7 +283,6 @@ var Core =
             },
             option,
           )
-
           ;(0, _youtubeSearch.default)(searchWord, opt, function(err, results) {
             if (err && self.props.onSearchError) {
               self.props.onSearchError(err)
