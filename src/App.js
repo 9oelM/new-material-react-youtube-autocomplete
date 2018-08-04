@@ -19,27 +19,31 @@ const styles = {
     flexDirection: 'column',
   },
   paper: {
-    maxWidth: 500,
+    width: '100%',
+    maxWidth: '700px',
     height: '10%',
     minHeight: '77px',
     padding: '50px',
   },
   heading: {
     paddingBottom: '10px',
+    textAlign: 'center',
   },
   results: {
-    marginTop: '15px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
-  '@media (max-height: 1024px)': {
+  '@media (max-width: 555px)': {
     container: {
       justifyContent: 'flex-start',
       alignItems: 'center',
     },
     paper: {
-      maxWidth: 'initial',
+      width: 'initial',
       height: 'initial',
       minHeight: 'initial',
-      padding: '50px',
+      padding: '10px',
     },
   },
 }
@@ -83,12 +87,12 @@ class App extends Component {
                 this.setState({ searchWord: inputValue })
               }
             />
-          </Paper>
-          <Paper id="results" className={classes.results} square>
-            <RenderSearchResults
-              searchWord={this.state.searchWord}
-              searchResults={this.state.searchResults}
-            />
+            <div className={classes.results}>
+              <RenderSearchResults
+                searchWord={this.state.searchWord}
+                searchResults={this.state.searchResults}
+              />
+            </div>
           </Paper>
         </Grid>
       </div>
