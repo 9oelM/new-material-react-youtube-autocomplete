@@ -125,10 +125,11 @@ Starts the development server on `localhost:8080` and watches file changes to pr
 * add tests
 * add gulpfile as the project is getting a bit bigger than before..
 
-## Version Logs 
+## Changelogs 
 * `0.1.15`: npm module import breaks because the codes are not transpiled to es5. But es6 codes work, but when transpiled to es5 by babel, they still don't work--when you click on one of the autocompleted results, the input field's value does not change to that. Have to figure out why. 
 * `0.1.151` npm module import does not break. But still: when you click on one of the autocompleted results, the input field's value does not change to that (if you are not manually using `src/wrapper/YoutubeAutocomplete.js` which is in es6 code, not transpiled)
 * `0.2` Error fixed. Now the transpiled code is OK.
 * `0.3` Callbacks added
 * `0.3.1` Added id `youtube-autocomplete` to the uppermost component, which is a simple div wrapping `Downshift` component.
 * `0.4.0` Added `onSearchTrigger` prop, which is a callback that is run when the user searches an item.
+* `0.5.0` Added a working example
