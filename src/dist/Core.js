@@ -283,6 +283,7 @@ var Core =
             },
             option,
           )
+
           ;(0, _youtubeSearch.default)(searchWord, opt, function(err, results) {
             if (err && self.props.onSearchError) {
               self.props.onSearchError(err)
@@ -403,7 +404,6 @@ var Core =
                               })
 
                               if (e.key === 'Enter') {
-                                // it processes it too fast that the previous inputValue is searched.
                                 _this2.fetchSearchResults(
                                   _this2.state.inputValue,
                                 )

@@ -119,7 +119,6 @@ class Core extends React.Component {
                     onKeyDown: e => {
                       this.setState({ isMenuOpen: true })
                       if (e.key === 'Enter') {
-                        // it processes it too fast that the previous inputValue is searched. 
                         this.fetchSearchResults(this.state.inputValue)
                         this.setState({ isMenuOpen: false })
                         onSearchTrigger ? onSearchTrigger(this.state.inputValue) : f=>f
