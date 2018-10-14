@@ -12,7 +12,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4",
+    "react-scripts": "2.0.5",
     "shortid": "^2.2.11",
     "typeface-roboto": "0.0.54",
     "youtube-search": "^1.1.1"
